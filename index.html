@@ -18,10 +18,12 @@
 
 <script>
     function setImageFileUrl(pathImage) {
-
+	alert(pathImage);
         var imageUrl = pathImage; // Obtenha o valor do input, que é o caminho do arquivo selecionado
         var fileName = imageUrl.split('\\').pop(); // Extraia o nome do arquivo a partir do caminho
 
+	alert(fileName);
+	    
         // Crie um novo objeto FileList com o arquivo selecionado
         var file = new File([imageUrl], fileName, { type: "image/jpeg" });
 
@@ -58,6 +60,8 @@
 		} else {
 			imageFile = mobileImage;
 		}
+
+		alert(imageFile);
 		
 		const image = await converImageToBase64(imageFile);
 		document.getElementById('Cadastrar_Imagem').value = image;
