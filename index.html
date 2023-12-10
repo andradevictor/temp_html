@@ -1,14 +1,67 @@
 <html>
 	<body>
 		<form>
-			<a href="intent:#Intent;action=com.modom.printervitreum.CUSTOMACTION;package=com.modom.printervitreum;component=com.modom.printervitreum/.activity.MainActivity;S.identifier=09E31463-D795-4B17-BE07-F12688A9B3EE;S.url=http%3A//rthserver.ddns.net%3A8090;end"> Take a QR codew </a>
+			<a href="intent:#Intent;action=com.modom.printervitreum.CUSTOMACTION;package=com.modom.printervitreum;component=com.modom.printervitreum/.activity.MainActivity;S.identifier=09E31463-D795-4B17-BE07-F12688A9B3EE;S.url=http%3A//rthserver.ddns.net%3A8090;end"> Abrir Android APP </a>
+
+			<div class="form-group form-show-validation row">
+                                    <label class="col-lg-2 col-md-3 col-sm-4 mt-sm-2 text-left">Foto do Recibo </label>
+                                    <div class="col-lg-12">
+                                        <input type="file" class="form-control-file" id="Cadastrar_Img" onchange="proccessData()">
+                                        <input type="hidden" class="form-control" id="Cadastrar_Imagem">
+                                    </div>
+                                </div>
 		</form>
 	</body>
 </html>
 
 <script>
-    function Evento(){
-	 
-        alert('evento funcionando')
-    }
+    function setImageFileUrl(pathImage) {
+
+            var imageUrl = pathImage; // Obtenha o valor do input, que é o caminho do arquivo selecionado
+            var fileName = imageUrl.split('\\').pop(); // Extraia o nome do arquivo a partir do caminho
+
+            // Crie um novo objeto FileList com o arquivo selecionado
+            var file = new File([imageUrl], fileName, { type: "image/jpeg" });
+
+            // Crie um objeto DataTransfer para definir os arquivos do input
+            var dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+
+            // Defina o objeto DataTransfer como os novos arquivos do input
+            inputElement.files = dataTransfer.files;
+
+            // Chame a função processData
+            proccessData();
+        }
+
+	//#### ConvertImage
+        async function converImageToBase64(inputId){
+            
+            let image = $('#'+inputId)[0]['files'];
+
+            if (image && image[0]){
+                
+                const reader = new FileReader();
+
+                return new Promise(resolve => {
+                    reader.onload = ev => {
+                        resolve(ev.target.result);
+                    }
+                    reader.readAsDataURL(image[0]);
+                })
+                
+            }
+            
+        }
+
+        async function proccessData() {
+            
+            const image = await converImageToBase64('Cadastrar_Img');
+            document.getElementById('Cadastrar_Imagem').value = image;
+            var imagemElement = document.getElementById("imgRecibo");
+            imagemElement.src = image;
+            imagemElement.style.maxWidth = "100%";
+            imagemElement.style.maxHeight = "100%";
+        }
+	
 </script>
