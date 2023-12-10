@@ -9,7 +9,7 @@
                                         <input type="file" class="form-control-file" id="Cadastrar_Img" onchange="proccessData()">
                                         <input type="hidden" class="form-control" id="Cadastrar_Imagem">
                                     </div>
-                                </div>
+                      </div>
 
 			<img id="imgRecibo" src="dinossauro1.jpg" />
 		</form>
@@ -20,16 +20,13 @@
     function setEncodedImage(encodedImage) {
             // Chame a função processData
             proccessData(encodedImage);
-        }
+}
 
 	//#### ConvertImage
         async function converImageToBase64(inputId) {
     	let imageInput = document.getElementById(inputId);
     	let image = imageInput.files;
 	
-	console.log(image)
-	console.log(imageInput)
-
     if (image && image[0]) {
         return new Promise(resolve => {
             const reader = new FileReader();
@@ -43,6 +40,9 @@
 
 async function proccessData(encodedImage) {
 	let image;
+	
+	alert(encodedImage)
+	
 	if (!encodedImage) {
 	    image = await converImageToBase64('Cadastrar_Img');
 	} else {
