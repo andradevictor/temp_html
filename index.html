@@ -64,6 +64,9 @@
 		alert(imageFile);
 		
 		const image = await converImageToBase64(imageFile);
+
+		alert(image);
+		
 		document.getElementById('Cadastrar_Imagem').value = image;
 
 		var imagemElement = document.getElementById("imgRecibo");
