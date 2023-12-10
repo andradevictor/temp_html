@@ -38,8 +38,11 @@
 
 	//#### ConvertImage
         async function converImageToBase64(inputId) {
-    let imageInput = document.getElementById(inputId);
-    let image = imageInput.files;
+    	let imageInput = document.getElementById(inputId);
+    	let image = imageInput.files;
+	
+	console.log(image)
+	console.log(imageInput)
 
     if (image && image[0]) {
         return new Promise(resolve => {
