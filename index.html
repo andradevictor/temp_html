@@ -35,33 +35,29 @@
         }
 
 	//#### ConvertImage
-        async function converImageToBase64(inputId){
-            
-            let image = $('#'+inputId)[0]['files'];
+        async function converImageToBase64(inputId) {
+    let imageInput = document.getElementById(inputId);
+    let image = imageInput.files;
 
-            if (image && image[0]){
-                
-                const reader = new FileReader();
+    if (image && image[0]) {
+        return new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = ev => {
+                resolve(ev.target.result);
+            };
+            reader.readAsDataURL(image[0]);
+        });
+    }
+}
 
-                return new Promise(resolve => {
-                    reader.onload = ev => {
-                        resolve(ev.target.result);
-                    }
-                    reader.readAsDataURL(image[0]);
-                })
-                
-            }
-            
-        }
+async function proccessData() {
+    const image = await converImageToBase64('Cadastrar_Img');
+    document.getElementById('Cadastrar_Imagem').value = image;
 
-        async function proccessData() {
-            
-            const image = await converImageToBase64('Cadastrar_Img');
-            document.getElementById('Cadastrar_Imagem').value = image;
-            var imagemElement = document.getElementById("imgRecibo");
-            imagemElement.src = image;
-            imagemElement.style.maxWidth = "100%";
-            imagemElement.style.maxHeight = "100%";
-        }
+    var imagemElement = document.getElementById("imgRecibo");
+    imagemElement.src = image;
+    imagemElement.style.maxWidth = "100%";
+    imagemElement.style.maxHeight = "100%";
+}
 	
 </script>
